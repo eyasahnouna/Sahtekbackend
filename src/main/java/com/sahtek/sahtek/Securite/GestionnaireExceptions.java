@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.ResourceAccessException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -30,19 +31,41 @@ public class GestionnaireExceptions {
         return ResponseEntity.badRequest().body(corps);
     }
 
-    // Accès refusé → 403 sans détails internes
+    // Timeout ou réseau indisponible → 503
+    @ExceptionHandler(ResourceAccessException.class)
+    public ResponseEntity<Map<String, String>> gererReseau(ResourceAccessException ex) {
+        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+                .body(Map.of("erreur", "Service d'analyse temporairement indisponible"));
+    }
+
+    // Erreurs métier connues → statuts HTTP précis
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<Map<String, String>> gererRuntime(RuntimeException ex) {
         String message = ex.getMessage();
 
-        if (message != null && message.equals("Accès refusé")) {
+        if (message == null) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("erreur", "Une erreur est survenue"));
+        }
+
+        if (message.equals("Accès refusé")) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN)
                     .body(Map.of("erreur", "Accès refusé"));
         }
 
-        if (message != null && message.equals("Invitation déjà envoyée")) {
+        if (message.equals("Invitation déjà envoyée")) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body(Map.of("erreur", message));
+        }
+
+        if (message.contains("Clé Gemini API invalide") || message.contains("non autorisée")) {
+            return ResponseEntity.status(HttpStatus.BAD_GATEWAY)
+                    .body(Map.of("erreur", "Service d'analyse non configuré"));
+        }
+
+        if (message.contains("Quota Gemini API dépassé")) {
+            return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+                    .body(Map.of("erreur", "Service d'analyse temporairement indisponible"));
         }
 
         // Toute autre erreur → 500 sans exposer la cause interne
