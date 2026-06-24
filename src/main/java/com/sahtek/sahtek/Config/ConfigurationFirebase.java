@@ -1,4 +1,4 @@
-﻿package com.sahtek.sahtek.Config;
+package com.sahtek.sahtek.Config;
 
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
