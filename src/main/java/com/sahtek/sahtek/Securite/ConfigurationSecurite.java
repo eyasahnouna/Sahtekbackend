@@ -44,8 +44,8 @@ public class ConfigurationSecurite {
         // En production : remplacer par le domaine réel de l'application
         config.setAllowedOriginPatterns(List.of(
                 "http://localhost:*",
-                "http://10.0.2.2:*",          // émulateur Android
-                "http://127.0.0.1:*"          // iOS simulator
+                "http://127.0.0.1:*",
+                "https://sahtekbackend.onrender.com"
         ));
 
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));

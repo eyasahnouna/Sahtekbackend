@@ -55,6 +55,12 @@
 			<version>8.10.1</version>
 		</dependency>
 
+		<!-- Spring Mail (SMTP) -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
 		<!-- Jackson databind pour ObjectMapper et JsonNode -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>

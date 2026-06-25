@@ -41,6 +41,7 @@ public class GestionnaireExceptions {
     // Erreurs métier connues → statuts HTTP précis
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<Map<String, String>> gererRuntime(RuntimeException ex) {
+        ex.printStackTrace(); // Added to see errors in Render logs
         String message = ex.getMessage();
 
         if (message == null) {
@@ -76,6 +77,7 @@ public class GestionnaireExceptions {
     // Erreur générique → 500 sans stacktrace
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, String>> gererException(Exception ex) {
+        ex.printStackTrace(); // Added to see errors in Render logs
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(Map.of("erreur", "Une erreur est survenue"));
     }

@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/Users/User/sahtek/**)",
+      "Bash(flutter analyze *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" https://sahtekbackend.onrender.com/actuator/health)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" https://sahtekbackend.onrender.com/)",
+      "Bash(curl -s https://sahtekbackend.onrender.com/actuator/health)",
+      "Bash(curl -s https://sahtekbackend.onrender.com/api/utilisateurs/moi)",
+      "Bash(xargs grep -l \"collaborat\" -i)",
+      "Bash(curl -s -X POST https://sahtekbackend.onrender.com/api/meals/analyze -H \"Content-Type: application/json\" -H \"Authorization: Bearer invalid_token\" -d '{\"imageBase64\":\"dGVzdA==\",\"hint\":\"test\"}')",
+      "Bash(flutter build *)"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\User\\sahtek\\sahtek\\lib\\services",
+      "c:\\Users\\User\\sahtek\\sahtek\\lib"
+    ]
+  }
+}
