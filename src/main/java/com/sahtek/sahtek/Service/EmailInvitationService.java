@@ -106,9 +106,12 @@ public class EmailInvitationService {
                   <p style="color: #555; line-height: 1.6;">Pour accepter cette invitation :</p>
                   <ol style="color: #555; line-height: 2;">
                     <li>T&#233;l&#233;chargez l&#39;application <strong>Sahtek</strong></li>
-                    <li>Connectez-vous avec <strong>%s</strong></li>
+                    <li>
+                      <strong>Cr&#233;ez un compte</strong> avec <strong>%s</strong>
+                      <br/><span style="color:#888;font-size:13px;">(si vous avez d&#233;j&#224; un compte, connectez-vous simplement)</span>
+                    </li>
                     <li>Allez dans <strong>Acc&#232;s partag&#233; &#8594; Invitations</strong></li>
-                    <li>Appuyez sur <strong>Accepter</strong></li>
+                    <li>Appuyez sur <strong>Accepter</strong> et choisissez un mot de passe</li>
                   </ol>
                 </div>
                 <div style="background: #f5f5f5; padding: 16px 24px; text-align: center;">
